@@ -1,6 +1,5 @@
 import getPaymentUrl from "../../Utility/getPaymentUrl"
-import MybookingModel from "../MyBookings/Booking.model"
-import myBookingService from "../MyBookings/Booking.service"
+
 
 const paywithBookingId=async(payload)=>{
     const booking=await myBookingService.getAbooking(payload)
@@ -22,4 +21,4 @@ const updateFailedStatus=async(id)=>{
 
 const paymentservice={paywithBookingId,updateAbookingPaymentStatus,updateFailedStatus}
 
-export default paymentservice   
+export default paymentservice    

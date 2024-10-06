@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import catchAsync from "../../Utility/catchAsync";
 import sendResponse from "../../Utility/sendResponse";
 import paymentservice from "./payment.service";
-import myBookingService from "../MyBookings/Booking.service";
 import httpStatus from "http-status";
 import path from "path";
 import fs from "fs";
@@ -14,17 +13,17 @@ const payWithBookingId = catchAsync(async (req: Request, res: Response) => {
 
   // checking is thsi payed or not.
 
-  const paymentStatus = await myBookingService.getAbooking(bookingId);
+  // const paymentStatus = await myBookingService.getAbooking(bookingId);
 
-  if (paymentStatus?.isPaid) {
-    const data = {};
-    return sendResponse(res, {
-      data,
-      success: false,
-      statusCode: httpStatus.BAD_REQUEST,
-      message: "You already paid for this booking.",
-    });
-  }
+  // if (paymentStatus?.isPaid) {
+  //   const data = {};
+  //   return sendResponse(res, {
+  //     data,
+  //     success: false,
+  //     statusCode: httpStatus.BAD_REQUEST,
+  //     message: "You already paid for this booking.",
+  //   });
+  // }
 
   const data = await paymentservice.paywithBookingId(bookingId);
   sendResponse(res, {
