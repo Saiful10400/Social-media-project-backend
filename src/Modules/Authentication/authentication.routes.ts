@@ -12,7 +12,11 @@ router.post("/login",zodValidation(authenticationValidationSchema.login),authent
 //3. get logged in user data.
 router.get("/getCurrentUser",auth(["user","admin"]),authenticationController.getCurrentUser)
 
+//4.check email and user name.
+router.post("/checkCredentials",authenticationController.checkCredentials)
 
+//5.change password.
+router.post("/changePassword",authenticationController.changePassword)
 
 
 

@@ -63,10 +63,32 @@ const getCurrentUser = async (payload:string) => {
 
 };
 
+
+// 4. check credentials.
+const checkCredential=async(name,email)=>{
+  const isExist=await signupModel.findOne({name,email})
+
+  if(isExist){
+    return {credential:true}
+  }
+  else{
+    return {credential:false}
+  }
+}
+
+//5. change password.
+const changePassword=async(payload)=>{
+  
+  const crUpdate=await signupModel.updateOne({email:payload.email},{password:payload.password})
+  return crUpdate
+}
+
 const AuthenticationService = {
   signup,
   login,
-  getCurrentUser
+  getCurrentUser,
+  checkCredential,
+  changePassword
 };
 
 export default AuthenticationService;

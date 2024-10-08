@@ -4,34 +4,58 @@ import { Tuser, UserModel } from "./authentication.interface";
 const signupSchema = new Schema<Tuser>({
   name: {
     type: String,
-    required: true,
+    required: [true, "Name is required"]
   },
   img: {
     type: String,
-    required: true,
+    required: [true, "Profile image URL is required"]
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is required"],
+    unique: true,
+    match: [/^\S+@\S+\.\S+$/, "Invalid email format"]
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Password is required"]
   },
   phone: {
     type: String,
-    required: true,
+    required: [true, "Phone number is required"]
   },
   role: {
     type: String,
-    enum: ["admin", "user"],
-    required: true,
+    enum: ["user", "admin"],
+    default: "user"
+  },
+  coverImg: {
+    type: String,
+    default: null
+  },
+  bio: {
+    type: String,
+    default: null
+  },
+  profession: {
+    type: String,
+    default: null
   },
   address: {
     type: String,
-    required: true,
+    default: null
   },
-});
+  socialLinks: {
+    type: [String],
+    validate: {
+      validator: function (v) {
+        return v.every(link => /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(link));
+      },
+      message: "Invalid URL in social links"
+    },
+    default: []
+  }
+}, { timestamps: true });
 
 signupSchema.post("save", function (docs, next) {
   this.password = undefined!; 

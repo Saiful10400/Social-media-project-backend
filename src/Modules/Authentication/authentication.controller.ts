@@ -60,12 +60,45 @@ const getCurrentUser = catchAsync(async (req: Request, res: Response) => {
     
   });
 });
+
+//4. check credentials.
+const checkCredentials = catchAsync(async (req: Request, res: Response) => {
+  const name=req.body.name
+  const email=req.body.email
+
+  const result = await AuthenticationService.checkCredential(name,email);
+ 
+  sendResponse(res, {
+    data:result,
+    statusCode: httpStatus.OK,
+    message: "credentials checked.",
+    success: true,
+    
+  });
+});
+//5. change password.
+const changePassword = catchAsync(async (req: Request, res: Response) => {
+  
+  const result = await AuthenticationService.changePassword(req.body);
+ 
+  sendResponse(res, {
+    data:result,
+    statusCode: httpStatus.OK,
+    message: "password Changed",
+    success: true,
+    
+  });
+});
+
+
  
 //  exporting the modules.
 const authenticationController = {
   signup,
   login,
-  getCurrentUser
+  getCurrentUser,
+  checkCredentials,
+  changePassword
 };
 
 export default authenticationController;

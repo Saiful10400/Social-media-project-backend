@@ -1,13 +1,19 @@
 import { z } from "zod";
 
 const signup=z.object({
-    name:z.string({message:"name mustbe a string."}),
-    img:z.string({message:"img url mustbe a string."}),
-    email:z.string().email({message:"invalid email address!"}),
-    phone:z.string().regex(/^\d+$/, {message:"Phone number must contain only digits"}),
-    role:z.enum(["user","admin"]), // include an error message.
-    address:z.string(),
-    password:z.string()
+    name: z.string().nonempty({ message: "Name is required" }),
+    img: z.string().nonempty({ message: "Profile image URL is required" }),
+    email: z.string().email({ message: "Invalid email format" }),
+    password: z.string().nonempty({ message: "Password is required" }),
+    phone: z.string().nonempty({ message: "Phone number is required" }),
+    role: z.enum(["user", "admin"], { 
+      errorMap: () => ({ message: "Role must be either 'user' or 'admin'" }) 
+    }).optional(),
+    coverImg: z.string().optional(),
+    bio: z.string().optional(),
+    profession: z.string().optional(),
+    address: z.string().optional(),
+    socialLinks: z.array(z.string().url({ message: "Invalid URL in social links" })).optional(),
 })
 
 const login=z.object({

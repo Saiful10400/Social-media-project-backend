@@ -7,7 +7,11 @@ export interface Tuser{
     password:string,
     phone:string,
     role: "user" | "admin",
-    address:string
+    coverImg?:string,
+    bio?:string,
+    profession?:string,
+    address?:string,
+    socialLinks?:Array<string>
 }
 
 export interface UserModel extends Model<Tuser>{
