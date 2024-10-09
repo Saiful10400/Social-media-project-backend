@@ -83,12 +83,33 @@ const changePassword=async(payload)=>{
   return crUpdate
 }
 
+//6. get single profile data.
+const getSingleProfileData=async(payload)=>{
+  
+  
+  const result=await signupModel.findById(payload)
+  return result
+}
+
+
+//7. update a profile.
+const updateAProfile=async(id,paylod)=>{
+
+  const result=await signupModel.findByIdAndUpdate(id,paylod,{new:true})
+  return result
+}
+
+
+
+
 const AuthenticationService = {
   signup,
   login,
   getCurrentUser,
   checkCredential,
-  changePassword
+  changePassword,
+  getSingleProfileData,
+  updateAProfile
 };
 
 export default AuthenticationService;

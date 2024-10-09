@@ -6,10 +6,9 @@ import httpStatus from "http-status";
 
 //1. create a user.
 const signup = catchAsync(async (req: Request, res: Response) => {
-
   const result = await AuthenticationService.signup(req.body);
   // const { data, accessToken } = result;
- 
+
   // send token into cooken.
   // res.cookie("accessToken", accessToken, {
   //   secure: true,
@@ -30,9 +29,9 @@ const signup = catchAsync(async (req: Request, res: Response) => {
 const login = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthenticationService.login(req.body);
   // const token = req.headers.authorization;
-const{data,accessToken}=result
+  const { data, accessToken } = result;
 
- res.cookie("accessToken", accessToken, {
+  res.cookie("accessToken", accessToken, {
     secure: false,
     httpOnly: true,
     sameSite: "none",
@@ -43,62 +42,86 @@ const{data,accessToken}=result
     statusCode: httpStatus.OK,
     message: "User logged in successfully",
     success: true,
-    token:accessToken
+    token: accessToken,
   });
 });
 
 //3. login a user.
 const getCurrentUser = catchAsync(async (req: Request, res: Response) => {
-  
   const result = await AuthenticationService.getCurrentUser(req.userId);
- 
+
   sendResponse(res, {
-    data:result,
+    data: result,
     statusCode: httpStatus.OK,
     message: "Current logged in user id retrieved successfully",
     success: true,
-    
   });
 });
 
 //4. check credentials.
 const checkCredentials = catchAsync(async (req: Request, res: Response) => {
-  const name=req.body.name
-  const email=req.body.email
+  const name = req.body.name;
+  const email = req.body.email;
 
-  const result = await AuthenticationService.checkCredential(name,email);
- 
+  const result = await AuthenticationService.checkCredential(name, email);
+
   sendResponse(res, {
-    data:result,
+    data: result,
     statusCode: httpStatus.OK,
     message: "credentials checked.",
     success: true,
-    
   });
 });
 //5. change password.
 const changePassword = catchAsync(async (req: Request, res: Response) => {
-  
   const result = await AuthenticationService.changePassword(req.body);
- 
+
   sendResponse(res, {
-    data:result,
+    data: result,
     statusCode: httpStatus.OK,
     message: "password Changed",
     success: true,
-    
   });
 });
 
+//6. get a single profile data.
+const getASingleProfileData = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await AuthenticationService.getSingleProfileData(
+      req.params.id
+    );
+    sendResponse(res, {
+      data: result,
+      statusCode: httpStatus.OK,
+      message: "Single Profile retrived",
+      success: true,
+    });
+  }
+);
 
- 
+//7. get a single profile data.
+const updateAProfile = catchAsync(async (req: Request, res: Response) => {
+  const result = await AuthenticationService.updateAProfile(
+    req.params.id,
+    req.body
+  );
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "Single Profile updated",
+    success: true,
+  });
+});
+
 //  exporting the modules.
 const authenticationController = {
   signup,
   login,
   getCurrentUser,
   checkCredentials,
-  changePassword
+  changePassword,
+  getASingleProfileData,
+  updateAProfile,
 };
 
 export default authenticationController;

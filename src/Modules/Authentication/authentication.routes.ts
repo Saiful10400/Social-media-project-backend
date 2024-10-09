@@ -18,7 +18,13 @@ router.post("/checkCredentials",authenticationController.checkCredentials)
 //5.change password.
 router.post("/changePassword",authenticationController.changePassword)
 
+// 6. get a single profile data.
 
+router.get("/:id",authenticationController.getASingleProfileData)
+
+// 6. get a single profile data.
+
+router.put("/:id",zodValidation(authenticationValidationSchema.UpdateUser),authenticationController.updateAProfile)
 
 
 // export the module.

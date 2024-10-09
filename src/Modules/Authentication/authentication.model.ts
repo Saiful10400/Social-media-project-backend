@@ -41,6 +41,10 @@ const signupSchema = new Schema<Tuser>({
     type: String,
     default: null
   },
+  educationInstitute: {
+    type: String,
+    default: null
+  },
   address: {
     type: String,
     default: null

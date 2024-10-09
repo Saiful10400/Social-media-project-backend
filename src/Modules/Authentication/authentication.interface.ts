@@ -11,6 +11,7 @@ export interface Tuser{
     bio?:string,
     profession?:string,
     address?:string,
+    educationInstitute?:string,
     socialLinks?:Array<string>
 }
 
