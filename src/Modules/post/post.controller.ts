@@ -2,21 +2,113 @@ import { Request, Response } from "express";
 import catchAsync from "../../Utility/catchAsync";
 import sendResponse from "../../Utility/sendResponse";
 import httpStatus from "http-status";
+import postService from "./post.service";
 
-//2. get all follower and following.
-const deleteAfollower = catchAsync(async (req: Request, res: Response) => {
-    const result = await followingService.deleteAfollower(req.params.id);
+//1.create one.
+
+
+const createOne = catchAsync(async (req: Request, res: Response) => {
+
+    const result = await postService.createOne(req.body)
   
     sendResponse(res, {
       data: result,
       statusCode: httpStatus.OK,
-      message: "Follower deleted successfully.",
+      message: "post created successfully.",
+      success: true,
+    });
+  });
+
+
+  
+//2.delete one.
+
+
+const deleteOne = catchAsync(async (req: Request, res: Response) => {
+
+    const result = await postService.deleteOne(req.params.id)
+  
+    sendResponse(res, {
+      data: result,
+      statusCode: httpStatus.OK,
+      message: "post deleted successfully.",
       success: true,
     });
   });
 
 
 
+//3.update one.
 
-  const followerController={}
-  export default followerController
+
+const updateOne = catchAsync(async (req: Request, res: Response) => {
+
+    const result = await postService.updateOne(req.params.id,req.body)
+  
+    sendResponse(res, {
+      data: result,
+      statusCode: httpStatus.OK,
+      message: "post updated successfully.",
+      success: true,
+    });
+  });
+
+//4. get all post.
+
+const getAll = catchAsync(async (req: Request, res: Response) => {
+
+  const result = await postService.getAll()
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "all post retrieved successfully.",
+    success: true,
+  });
+});
+
+//5. get one post.
+
+const getOne = catchAsync(async (req: Request, res: Response) => {
+
+  const result = await postService.getOne(req.params.id)
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "a post retrieved successfully.",
+    success: true,
+  });
+});
+
+//total vote
+
+const totalvote = catchAsync(async (req: Request, res: Response) => {
+
+  const result = await postService.totalvote(req.params.id)
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "total vote retrieved successfully.",
+    success: true,
+  });
+});
+
+//6. get one user's all.
+
+const getOneusersAll = catchAsync(async (req: Request, res: Response) => {
+
+  const result = await postService.getAuserAllPost(req.params.id)
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "a user's all post retrieved successfully.",
+    success: true,
+  });
+});
+
+
+  const postController={createOne,deleteOne,updateOne,getAll,getOne,totalvote,getOneusersAll}
+  export default postController

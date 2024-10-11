@@ -23,6 +23,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    vote: {
+        type: Number,
+        default: 0,
+    },
     isDeleted: {
         type: Boolean,
         default: false, // Default value is false

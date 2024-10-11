@@ -11,19 +11,6 @@ import varifyPayment from "../../Utility/varifyPayment";
 const payWithBookingId = catchAsync(async (req: Request, res: Response) => {
   const bookingId = req.params.id;
 
-  // checking is thsi payed or not.
-
-  // const paymentStatus = await myBookingService.getAbooking(bookingId);
-
-  // if (paymentStatus?.isPaid) {
-  //   const data = {};
-  //   return sendResponse(res, {
-  //     data,
-  //     success: false,
-  //     statusCode: httpStatus.BAD_REQUEST,
-  //     message: "You already paid for this booking.",
-  //   });
-  // }
 
   const data = await paymentservice.paywithBookingId(bookingId);
   sendResponse(res, {
@@ -37,24 +24,26 @@ const payWithBookingId = catchAsync(async (req: Request, res: Response) => {
 
 //2. payment after redirection process.
 const paymentStatus = catchAsync(async (req: Request, res: Response) => {
-  const bookingId = req.params.id;
+  const userId = req.params.id;
   const tnxId = req.query.transectonId;
   const paymentStatus = await varifyPayment(tnxId as string);
-  console.log(tnxId, bookingId, paymentStatus);
+  console.log(tnxId, userId, paymentStatus);
 
   // update payment status info into db.
+
   if (paymentStatus.pay_status === "Successful") {
     const updatePaymentToDb = await paymentservice.updateAbookingPaymentStatus(
-      bookingId,
-      tnxId
+      userId,
+      tnxId,
+      paymentStatus.payment_processor,
+      paymentStatus.amount_currency,
+      paymentStatus.currency_merchant
     );
-  } else{
-    const updateFailedStatus=await paymentservice.updateFailedStatus(bookingId)
-  }
+  } 
 
   const absolutePath = path.join(__dirname, "../../../public/index.html");
   let file = fs.readFileSync(absolutePath, "utf-8");
-  file = file.replace("{{message}}", bookingId);
+  file = file.replace("{{message}}",`profile?id=${userId}&tnxId=${tnxId}&paymentStatus=${paymentStatus.pay_status === "Successful"}`);
   res.send(file);
 });
 

@@ -49,6 +49,10 @@ const signupSchema = new Schema<Tuser>({
     type: String,
     default: null
   },
+  verifyed: {
+    type: Boolean,
+    default: false
+  },
   socialLinks: {
     type: [String],
     validate: {

@@ -1,8 +1,7 @@
 import axios from "axios";
-import appError from "../Errors/appError";
-import httpStatus from "http-status";
 
-const getPaymentUrl = async (user,room,bookngId) => {
+
+const getPaymentUrl = async (user) => {
   const transectionId=`TNX-${Date.now()}-${user.phone}`
   const paymentObj = {
     store_id: process.env.STORE_ID,
@@ -14,11 +13,11 @@ const getPaymentUrl = async (user,room,bookngId) => {
     cus_add2: "",
     cus_city: "",
     cus_country: "",
-    amount: room.pricePerSlot,
+    amount: 40,
     tran_id: transectionId,
     currency: "USD",
-    success_url: `${process.env.BACK_END_URL}/api/pay/status/${bookngId}?transectonId=${transectionId}`,
-    fail_url: `${process.env.BACK_END_URL}/api/pay/status/${bookngId}?transectonId=${transectionId}`,
+    success_url: `${process.env.BACK_END_URL}/api/pay/status/${user._id}?transectonId=${transectionId}`,
+    fail_url: `${process.env.BACK_END_URL}/api/pay/status/${user._id}?transectonId=${transectionId}`,
     cancel_url: process.env.FRONT_END_URL,
     desc: "Lend Money",
     type: "json",

@@ -5,7 +5,7 @@ import followingModel from "./following.model"
 
 //1. create a following.
 const createAFollowing=async(payload:Tfollow)=>{
-    console.log(payload)
+    
     const result=await followingModel.create(payload)
     return result
 }

@@ -1,24 +1,25 @@
 import getPaymentUrl from "../../Utility/getPaymentUrl"
+import { signupModel } from "../Authentication/authentication.model"
+import UserPaymentModel from "../UserPayment/UserPayment.model"
 
 
 const paywithBookingId=async(payload)=>{
-    const booking=await myBookingService.getAbooking(payload)
-    const bookingUrl=await getPaymentUrl(booking?.user,booking?.slot?.room,payload) 
+    // retrieve your user info with id.
+    const userData=await signupModel.findById(payload)
+    const bookingUrl=await getPaymentUrl(userData) 
     return bookingUrl
 }
 
 //2. update a pyment status.
-const updateAbookingPaymentStatus=async(id,tnxId)=>{
-    const result=await MybookingModel.findByIdAndUpdate(id,{tnxId,isPaid:true,isFailed:false})
-    return result
+const updateAbookingPaymentStatus=async(userId,tnxId,paymentMethod,amount,currency)=>{
+    const result=await UserPaymentModel.create({userId,tnxId,paymentMethod,amount,currency})
+    // update the user status.
+    const updateUser=await signupModel.findByIdAndUpdate(userId,{verifyed:true})
+    return {result,updateUser}
 }
 
-//3. update failed status.
-const updateFailedStatus=async(id)=>{
-    const result=await MybookingModel.findByIdAndUpdate(id,{isFailed:true})
-    return result
-}
 
-const paymentservice={paywithBookingId,updateAbookingPaymentStatus,updateFailedStatus}
+
+const paymentservice={paywithBookingId,updateAbookingPaymentStatus}
 
 export default paymentservice    

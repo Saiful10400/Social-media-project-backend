@@ -4,5 +4,6 @@ export interface Tpost{
     creator:string,
     category:string,
     costing:string,
+    vote?:number,
     isDeleted?:boolean
 }

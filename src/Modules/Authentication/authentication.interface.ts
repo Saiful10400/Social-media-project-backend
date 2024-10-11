@@ -12,6 +12,7 @@ export interface Tuser{
     profession?:string,
     address?:string,
     educationInstitute?:string,
+    verifyed?:boolean,
     socialLinks?:Array<string>
 }
 
