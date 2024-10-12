@@ -3,6 +3,7 @@ import reactonModel from "../Reaction/reaction.model"
 import { Tpost } from "./post.interface"
 import postModel from "./post.model"
 import CommentModel from "../Comment/comment.model"
+import favouriteModel from "../Favourite/favourite.model"
 
 //1. create a post.
 const createOne=async(payload:Tpost)=>{
@@ -28,7 +29,8 @@ const allPost=await postModel.find({isDeleted:false}).populate("creator")
 const result=allPost.map(async(item)=>{
     const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
     const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id),isDeleted:false}).populate("commentor")
-    return{post:item,reaction,comments}
+    const favourite=await favouriteModel.find({postId:new mongoose.Types.ObjectId(item?._id)})
+    return{post:item,reaction,comments,favourite}
 })
 
 return Promise.all(result)
@@ -41,7 +43,8 @@ const getOne=async(id:string)=>{
     const aPost=await postModel.findById(id).populate("creator")
     const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(aPost?._id)})
     const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(aPost?._id),isDeleted:false}).populate("commentor")
-    return{post:aPost,reaction,comments}
+    const favourite=await favouriteModel.find({postId:new mongoose.Types.ObjectId(aPost?._id)})
+    return{post:aPost,reaction,comments,favourite}
 }
 
 //total vote.
@@ -60,7 +63,8 @@ const getAuserAllPost=async(id:string)=>{
 const result=allPost.map(async(item)=>{
     const allPromises=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
     const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id),isDeleted:false}).populate("commentor")
-    return{post:item,reaction:allPromises,comments}
+    const favourite=await favouriteModel.find({postId:new mongoose.Types.ObjectId(item?._id)})
+    return{post:item,reaction:allPromises,comments,favourite}
 })
 
 
