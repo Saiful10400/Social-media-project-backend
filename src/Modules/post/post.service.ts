@@ -27,7 +27,7 @@ const allPost=await postModel.find({isDeleted:false}).populate("creator")
 
 const result=allPost.map(async(item)=>{
     const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
-    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id)}).populate("commentor")
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id),isDeleted:false}).populate("commentor")
     return{post:item,reaction,comments}
 })
 
@@ -40,7 +40,7 @@ return Promise.all(result)
 const getOne=async(id:string)=>{
     const aPost=await postModel.findById(id).populate("creator")
     const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(aPost?._id)})
-    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(aPost?._id)}).populate("commentor")
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(aPost?._id),isDeleted:false}).populate("commentor")
     return{post:aPost,reaction,comments}
 }
 
@@ -59,7 +59,7 @@ const getAuserAllPost=async(id:string)=>{
 
 const result=allPost.map(async(item)=>{
     const allPromises=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
-    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id)}).populate("commentor")
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id),isDeleted:false}).populate("commentor")
     return{post:item,reaction:allPromises,comments}
 })
 

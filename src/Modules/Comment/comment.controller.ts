@@ -30,5 +30,23 @@ const deleteOne = catchAsync(async (req: Request, res: Response) => {
     });
   });
 
-  const commentController={createOne,deleteOne}
+
+// update one.
+
+const updateOne = catchAsync(async (req: Request, res: Response) => {
+
+  const result = await commentService.updateOne(req.params.id,req.body)
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "comment updated successfully.",
+    success: true,
+  });
+});
+
+
+
+
+  const commentController={createOne,deleteOne,updateOne}
   export default commentController   

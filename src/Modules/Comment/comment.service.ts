@@ -12,5 +12,11 @@ const deleteOne=async(id:string)=>{
     return result
 }
 
-const commentService={createOne,deleteOne}
+
+const updateOne=async(id:string,payload)=>{
+    const result=await CommentModel.findByIdAndUpdate(id,payload)
+    return result
+}
+
+const commentService={createOne,deleteOne,updateOne}
 export default commentService
