@@ -113,9 +113,25 @@ const updateAProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+//8. get all
+const getAllUser = catchAsync(async (req: Request, res: Response) => {
+ 
+  const result = await AuthenticationService.getAllUser()
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "all Profile retrieved",
+    success: true,
+  });
+});
+
+
+
 //  exporting the modules.
 const authenticationController = {
   signup,
+  getAllUser,
   login,
   getCurrentUser,
   checkCredentials,

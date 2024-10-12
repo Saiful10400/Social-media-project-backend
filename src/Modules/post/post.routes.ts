@@ -9,10 +9,10 @@ const router=Router()
 router.post("/",postController.createOne)
 
 //2. delete one.
-router.delete("/",postController.createOne)
+router.delete("/:id",postController.deleteOne)
 
 //3. update one.
-router.put("/",postController.updateOne)
+router.put("/:id",postController.updateOne)
 
 //4. all get.
 router.get("/",postController.getAll)
@@ -25,6 +25,9 @@ router.get("/totalvote/:id",postController.totalvote)
 
 //get a user all
 router.get("/user/:id",postController.getOneusersAll)
+
+//block
+router.put("/block/:id",postController.blockAPost)
 
 const postRoute=router
 export default postRoute 

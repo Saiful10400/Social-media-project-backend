@@ -5,6 +5,8 @@ import authenticationValidationSchema from "./authentication.validation";
 import auth from "../../MiddleWare/auth";
 
 const router=Router()
+//7. get all user
+router.get("/all-user",authenticationController.getAllUser)
 // 1. signup route.
 router.post("/signup",zodValidation(authenticationValidationSchema.signup),authenticationController.signup)
 //2. login route.
@@ -25,6 +27,8 @@ router.get("/:id",authenticationController.getASingleProfileData)
 // 6. get a single profile data.
 
 router.put("/:id",zodValidation(authenticationValidationSchema.UpdateUser),authenticationController.updateAProfile)
+
+
 
 
 // export the module.

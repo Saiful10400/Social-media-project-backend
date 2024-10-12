@@ -34,6 +34,7 @@ const UpdateUser = z.object({
   educationInstitute: z.string().optional(),
   address: z.string().optional(),
   verifyed: z.boolean().optional(),
+  isBlocked: z.boolean().optional(),
   socialLinks: z.array(z.string().url({ message: "Invalid URL in social links" })).optional(),
 });
 

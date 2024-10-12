@@ -13,6 +13,7 @@ export interface Tuser{
     address?:string,
     educationInstitute?:string,
     verifyed?:boolean,
+    isBlocked?:boolean,
     socialLinks?:Array<string>
 }
 

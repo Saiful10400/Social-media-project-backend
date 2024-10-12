@@ -19,11 +19,12 @@ const getfollowAndFollowing=async(id)=>{
 }
 
 //3. delete a follower
-const deleteAfollower=async(id)=>{
-    const result=await followingModel.deleteOne({follower:new mongoose.Types.ObjectId(id)})
+const makeAUnfollow=async(payload)=>{
+    
+    const result=await followingModel.deleteOne({follower:new mongoose.Types.ObjectId(payload.follower),following:new mongoose.Types.ObjectId(payload.following)})
    
     return result
 }
 
-const followingService={createAFollowing,getfollowAndFollowing,deleteAfollower}
+const followingService={createAFollowing,getfollowAndFollowing,makeAUnfollow}
 export default followingService

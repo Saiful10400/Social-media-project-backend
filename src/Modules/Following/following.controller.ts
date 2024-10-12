@@ -31,20 +31,20 @@ const getOneFollowingAndFollers = catchAsync(async (req: Request, res: Response)
   });
 
 //2. get all follower and following.
-const deleteAfollower = catchAsync(async (req: Request, res: Response) => {
-    const result = await followingService.deleteAfollower(req.params.id);
+const makeAUnfollow = catchAsync(async (req: Request, res: Response) => {
+    const result = await followingService.makeAUnfollow(req.body);
   
     sendResponse(res, {
       data: result,
       statusCode: httpStatus.OK,
-      message: "Follower deleted successfully.",
+      message: "Follower unfollowed successfully.",
       success: true,
     });
   });
 
 
 
-  const followController={createAfollowing,getOneFollowingAndFollers,deleteAfollower}
+  const followController={createAfollowing,getOneFollowingAndFollers,makeAUnfollow}
 
   export default followController
   

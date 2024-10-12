@@ -5,6 +5,7 @@ import followRoute from "../Modules/Following/following.routes"
 import postRoute from "../Modules/post/post.routes"
 import reactionRouter from "../Modules/Reaction/reaction.routes"
 import paymentHistoryRoute from "../Modules/UserPayment/UserPayment.routes"
+import commentRoute from "../Modules/Comment/comment.routes"
 
 
 const routes=Router()
@@ -35,6 +36,11 @@ const moduleRoutes=[
     {
         path:"/reaction",
         route:reactionRouter
+    }
+    ,
+    {
+        path:"/comment",
+        route:commentRoute
     }
     ,
     {

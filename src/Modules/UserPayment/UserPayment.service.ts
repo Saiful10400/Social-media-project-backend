@@ -5,6 +5,12 @@ const getAPaymentHistory=async(tnxId:string)=>{
     return result
 }
 
+const getAllPaymentHistory=async()=>{
+    const result=await UserPaymentModel.find().populate("userId")
+    
+    return result
+}
 
-const paymentHistoryService={getAPaymentHistory}
+
+const paymentHistoryService={getAPaymentHistory,getAllPaymentHistory}
 export default paymentHistoryService

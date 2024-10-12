@@ -27,7 +27,7 @@ const paymentStatus = catchAsync(async (req: Request, res: Response) => {
   const userId = req.params.id;
   const tnxId = req.query.transectonId;
   const paymentStatus = await varifyPayment(tnxId as string);
-  console.log(tnxId, userId, paymentStatus);
+  
 
   // update payment status info into db.
 

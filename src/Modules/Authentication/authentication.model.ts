@@ -53,6 +53,10 @@ const signupSchema = new Schema<Tuser>({
     type: Boolean,
     default: false
   },
+  isBlocked: {
+    type: Boolean,
+    default: false
+  },
   socialLinks: {
     type: [String],
     validate: {
@@ -60,7 +64,7 @@ const signupSchema = new Schema<Tuser>({
         return v.every(link => /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(link));
       },
       message: "Invalid URL in social links"
-    },
+    }, 
     default: []
   }
 }, { timestamps: true });

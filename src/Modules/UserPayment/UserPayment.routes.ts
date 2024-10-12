@@ -7,6 +7,7 @@ const router=Router()
 
 
 router.get("/:tnxId",paymentHistoryController.getaPayment)
+router.get("/",paymentHistoryController.getAll)
 
 
 const paymentHistoryRoute=router

@@ -18,6 +18,20 @@ const getaPayment = catchAsync(async (req: Request, res: Response) => {
   });
 
 
+//get all
+const getAll = catchAsync(async (req: Request, res: Response) => {
+  
+  
+    const data = await paymentHistoryService.getAllPaymentHistory()
+    sendResponse(res, {
+      data,
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "payment history retrieved.",
+    });
+  });
 
-  const paymentHistoryController={getaPayment}
+
+
+  const paymentHistoryController={getaPayment,getAll}
   export default paymentHistoryController

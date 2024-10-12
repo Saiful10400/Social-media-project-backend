@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 import reactonModel from "../Reaction/reaction.model"
 import { Tpost } from "./post.interface"
 import postModel from "./post.model"
+import CommentModel from "../Comment/comment.model"
 
 //1. create a post.
 const createOne=async(payload:Tpost)=>{
@@ -21,18 +22,17 @@ const deleteOne=async(id)=>{
 
 //4. get all.
 const getAll=async()=>{
-const allPost=await postModel.find().populate("creator")
+const allPost=await postModel.find({isDeleted:false}).populate("creator")
 
 
 const result=allPost.map(async(item)=>{
-    const allPromises=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
-    return{post:item,reaction:allPromises}
+    const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id)}).populate("commentor")
+    return{post:item,reaction,comments}
 })
 
 return Promise.all(result)
 
-
-// console.log(allPost,allReaction,"post and reaction")
 
 }
 
@@ -40,7 +40,8 @@ return Promise.all(result)
 const getOne=async(id:string)=>{
     const aPost=await postModel.findById(id).populate("creator")
     const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(aPost?._id)})
-    return{post:aPost,reaction}
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(aPost?._id)}).populate("commentor")
+    return{post:aPost,reaction,comments}
 }
 
 //total vote.
@@ -54,19 +55,28 @@ const totalvote=async(id:string)=>{
 
 //5. get one.
 const getAuserAllPost=async(id:string)=>{
-    const allPost=await postModel.find({creator:new mongoose.Types.ObjectId(id)}).populate("creator")
+    const allPost=await postModel.find({creator:new mongoose.Types.ObjectId(id),isDeleted:false}).populate("creator")
 
 const result=allPost.map(async(item)=>{
     const allPromises=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
-    return{post:item,reaction:allPromises}
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id)}).populate("commentor")
+    return{post:item,reaction:allPromises,comments}
 })
+
 
 return Promise.all(result)
 
 
 }
 
+//6. block a post.
+const blockAPost=async(id:string)=>{
+    const prev=await postModel.findById(id)
+    const result=await postModel.findByIdAndUpdate(id,{isBlock:!prev?.isBlock})
+    return result
+}
 
 
-const postService={createOne,updateOne,deleteOne,getAll,getOne,getAuserAllPost,totalvote}
+
+const postService={createOne,updateOne,deleteOne,getAll,getOne,getAuserAllPost,totalvote,blockAPost}
 export default postService

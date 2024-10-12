@@ -27,6 +27,10 @@ const postSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    isBlock: {
+        type: Boolean,
+        default: false,
+    },
     isDeleted: {
         type: Boolean,
         default: false, // Default value is false

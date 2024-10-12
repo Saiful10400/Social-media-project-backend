@@ -99,11 +99,19 @@ const updateAProfile=async(id,paylod)=>{
   return result
 }
 
+//8. get all
+const getAllUser=async()=>{
+
+  const result=await signupModel.find()
+  return result
+}
+
 
 
 
 const AuthenticationService = {
   signup,
+  getAllUser,
   login,
   getCurrentUser,
   checkCredential,

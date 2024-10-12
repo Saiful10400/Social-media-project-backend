@@ -15,7 +15,7 @@ router.get("/:id",followController.getOneFollowingAndFollers)
 
 //3. Delete a follow & following
 
-router.delete("/:id",followController.deleteAfollower)
+router.delete("/",followController.makeAUnfollow)
 
 // export the module.
 const followRoute=router

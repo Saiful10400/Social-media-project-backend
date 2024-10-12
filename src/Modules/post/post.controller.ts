@@ -6,58 +6,47 @@ import postService from "./post.service";
 
 //1.create one.
 
-
 const createOne = catchAsync(async (req: Request, res: Response) => {
+  const result = await postService.createOne(req.body);
 
-    const result = await postService.createOne(req.body)
-  
-    sendResponse(res, {
-      data: result,
-      statusCode: httpStatus.OK,
-      message: "post created successfully.",
-      success: true,
-    });
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "post created successfully.",
+    success: true,
   });
+});
 
-
-  
 //2.delete one.
 
-
 const deleteOne = catchAsync(async (req: Request, res: Response) => {
+  const result = await postService.deleteOne(req.params.id);
 
-    const result = await postService.deleteOne(req.params.id)
-  
-    sendResponse(res, {
-      data: result,
-      statusCode: httpStatus.OK,
-      message: "post deleted successfully.",
-      success: true,
-    });
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "post deleted successfully.",
+    success: true,
   });
-
-
+});
 
 //3.update one.
 
-
 const updateOne = catchAsync(async (req: Request, res: Response) => {
+  const result = await postService.updateOne(req.params.id, req.body);
 
-    const result = await postService.updateOne(req.params.id,req.body)
-  
-    sendResponse(res, {
-      data: result,
-      statusCode: httpStatus.OK,
-      message: "post updated successfully.",
-      success: true,
-    });
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "post updated successfully.",
+    success: true,
   });
+});
 
 //4. get all post.
 
 const getAll = catchAsync(async (req: Request, res: Response) => {
-
-  const result = await postService.getAll()
+  const result = await postService.getAll();
 
   sendResponse(res, {
     data: result,
@@ -70,8 +59,7 @@ const getAll = catchAsync(async (req: Request, res: Response) => {
 //5. get one post.
 
 const getOne = catchAsync(async (req: Request, res: Response) => {
-
-  const result = await postService.getOne(req.params.id)
+  const result = await postService.getOne(req.params.id);
 
   sendResponse(res, {
     data: result,
@@ -84,8 +72,7 @@ const getOne = catchAsync(async (req: Request, res: Response) => {
 //total vote
 
 const totalvote = catchAsync(async (req: Request, res: Response) => {
-
-  const result = await postService.totalvote(req.params.id)
+  const result = await postService.totalvote(req.params.id);
 
   sendResponse(res, {
     data: result,
@@ -98,8 +85,7 @@ const totalvote = catchAsync(async (req: Request, res: Response) => {
 //6. get one user's all.
 
 const getOneusersAll = catchAsync(async (req: Request, res: Response) => {
-
-  const result = await postService.getAuserAllPost(req.params.id)
+  const result = await postService.getAuserAllPost(req.params.id);
 
   sendResponse(res, {
     data: result,
@@ -109,6 +95,27 @@ const getOneusersAll = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//6. get one user's all.
 
-  const postController={createOne,deleteOne,updateOne,getAll,getOne,totalvote,getOneusersAll}
-  export default postController
+const blockAPost = catchAsync(async (req: Request, res: Response) => {
+  const result = await postService.blockAPost(req.params.id);
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "blocked successfully.",
+    success: true,
+  });
+});
+
+const postController = {
+  createOne,
+  deleteOne,
+  blockAPost,
+  updateOne,
+  getAll,
+  getOne,
+  totalvote,
+  getOneusersAll,
+};
+export default postController;
