@@ -123,10 +123,24 @@ const allpostImage = catchAsync(async (req: Request, res: Response) => {
 });
 
 
+//8.get all post.
+const getAllNews = catchAsync(async (req: Request, res: Response) => {
+  const result = await postService.getAllnews();
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "all Newsfeed post retrieved successfully.",
+    success: true,
+  });
+});
+
+
 
 
 const postController = {
   allpostImage,
+  getAllNews,
   createOne,
   deleteOne,
   blockAPost,

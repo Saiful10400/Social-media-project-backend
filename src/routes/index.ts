@@ -7,6 +7,7 @@ import reactionRouter from "../Modules/Reaction/reaction.routes"
 import paymentHistoryRoute from "../Modules/UserPayment/UserPayment.routes"
 import commentRoute from "../Modules/Comment/comment.routes"
 import favouriteRoute from "../Modules/Favourite/favourite.routes"
+import NotificationRoute from "../Modules/Notification/Notification.routes"
 
 
 const routes=Router()
@@ -51,6 +52,11 @@ const moduleRoutes=[
     {
         path:"/payment-history",
         route:paymentHistoryRoute
+    }
+    ,
+    {
+        path:"/notification",
+        route:NotificationRoute
     }
 ]
 

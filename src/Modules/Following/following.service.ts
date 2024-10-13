@@ -1,12 +1,15 @@
 import mongoose from "mongoose"
 import { Tfollow } from "./following.interface"
 import followingModel from "./following.model"
+import notificationModel from "../Notification/Notification.model"
 
 
 //1. create a following.
 const createAFollowing=async(payload:Tfollow)=>{
     
     const result=await followingModel.create(payload)
+    notificationModel.create({receiver:payload?.following,
+        message:"A User follwed You."})
     return result
 }
 

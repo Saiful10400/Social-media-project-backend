@@ -93,9 +93,20 @@ const allPostImage=async()=>{
 }
 
 
-//8. 
+//8. get all newst.
+const getAllnews=async()=>{
+    const allPost=await postModel.find({isDeleted:false,isBlock:false}).populate("creator")
+const result=allPost.map(async(item)=>{
+    const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id),isDeleted:false}).populate("commentor")
+    const favourite=await favouriteModel.find({postId:new mongoose.Types.ObjectId(item?._id)})
+    return{post:item,reaction,comments,favourite}
+})
+
+return Promise.all(result)
+}
 
 
 
-const postService={createOne,getAUserAllFavouritePost,updateOne,deleteOne,getAll,getOne,getAuserAllPost,totalvote,blockAPost,allPostImage}
+const postService={createOne,getAllnews,getAUserAllFavouritePost,updateOne,deleteOne,getAll,getOne,getAuserAllPost,totalvote,blockAPost,allPostImage}
 export default postService

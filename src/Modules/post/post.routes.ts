@@ -33,5 +33,9 @@ router.put("/block/:id",postController.blockAPost)
 //8. gel all post image.
 router.get("/image",postController.allpostImage)
 
+//9. get all data for newsfeed.
+router.get("/newsfeed",postController.getAllNews)
+
+
 const postRoute=router
 export default postRoute 
