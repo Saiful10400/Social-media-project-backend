@@ -75,6 +75,17 @@ const checkCredential=async(name,email)=>{
     return {credential:false}
   }
 }
+// 4. check credentials.
+const  validateLastPasswod=async(password,email)=>{
+  const isExist=await signupModel.findOne({password,email})
+console.log(isExist,"val pass.")
+  if(isExist){
+    return {credential:true}
+  }
+  else{
+    return {credential:false}
+  }
+}
 
 //5. change password.
 const changePassword=async(payload)=>{
@@ -103,6 +114,7 @@ const updateAProfile=async(id,paylod)=>{
 const getAllUser=async()=>{
 
   const result=await signupModel.find()
+
   return result
 }
 
@@ -117,7 +129,8 @@ const AuthenticationService = {
   checkCredential,
   changePassword,
   getSingleProfileData,
-  updateAProfile
+  updateAProfile,
+  validateLastPasswod
 };
 
 export default AuthenticationService;

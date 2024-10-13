@@ -17,6 +17,9 @@ router.get("/getCurrentUser",auth(["user","admin"]),authenticationController.get
 //4.check email and user name.
 router.post("/checkCredentials",authenticationController.checkCredentials)
 
+//4.last password val.
+router.post("/lastPassVal",authenticationController.validateLastPasswod)
+
 //5.change password.
 router.post("/changePassword",authenticationController.changePassword)
 

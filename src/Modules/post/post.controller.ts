@@ -86,9 +86,10 @@ const totalvote = catchAsync(async (req: Request, res: Response) => {
 
 const getOneusersAll = catchAsync(async (req: Request, res: Response) => {
   const result = await postService.getAuserAllPost(req.params.id);
+  const favouritePost=await postService.getAUserAllFavouritePost(req.params.id)
 
   sendResponse(res, {
-    data: result,
+    data: {all:result,favourite:favouritePost},
     statusCode: httpStatus.OK,
     message: "a user's all post retrieved successfully.",
     success: true,
@@ -108,7 +109,24 @@ const blockAPost = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+//8.get all post.
+const allpostImage = catchAsync(async (req: Request, res: Response) => {
+  const result = await postService.allPostImage();
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "all post image retrieved successfully.",
+    success: true,
+  });
+});
+
+
+
+
 const postController = {
+  allpostImage,
   createOne,
   deleteOne,
   blockAPost,

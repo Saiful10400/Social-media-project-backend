@@ -29,5 +29,9 @@ router.get("/user/:id",postController.getOneusersAll)
 //block
 router.put("/block/:id",postController.blockAPost)
 
+
+//8. gel all post image.
+router.get("/image",postController.allpostImage)
+
 const postRoute=router
 export default postRoute 

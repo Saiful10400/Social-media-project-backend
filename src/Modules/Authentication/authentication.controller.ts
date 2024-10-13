@@ -72,6 +72,23 @@ const checkCredentials = catchAsync(async (req: Request, res: Response) => {
     success: true,
   });
 });
+
+//4.1 validate last password.
+const validateLastPasswod = catchAsync(async (req: Request, res: Response) => {
+  const password = req.body.password;
+  const email = req.body.email;
+
+  const result = await AuthenticationService.validateLastPasswod(password, email);
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "credentials checked.",
+    success: true,
+  });
+});
+
+
 //5. change password.
 const changePassword = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthenticationService.changePassword(req.body);
@@ -138,6 +155,7 @@ const authenticationController = {
   changePassword,
   getASingleProfileData,
   updateAProfile,
+  validateLastPasswod
 };
 
 export default authenticationController;

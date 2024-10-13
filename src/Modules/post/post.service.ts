@@ -73,6 +73,12 @@ return Promise.all(result)
 
 }
 
+//5.1 get all favourite post.
+const getAUserAllFavouritePost=async(id:string)=>{
+    const result=await favouriteModel.find({userId:new mongoose.Types.ObjectId(id)}).populate("userId").populate({path:"postId",populate:{path:"creator"}})
+    return result
+}
+
 //6. block a post.
 const blockAPost=async(id:string)=>{
     const prev=await postModel.findById(id)
@@ -80,7 +86,16 @@ const blockAPost=async(id:string)=>{
     return result
 }
 
+//7. get all post image.
+const allPostImage=async()=>{
+    const result=await postModel.find().select("img")
+    return result
+}
 
 
-const postService={createOne,updateOne,deleteOne,getAll,getOne,getAuserAllPost,totalvote,blockAPost}
+//8. 
+
+
+
+const postService={createOne,getAUserAllFavouritePost,updateOne,deleteOne,getAll,getOne,getAuserAllPost,totalvote,blockAPost,allPostImage}
 export default postService
