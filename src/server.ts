@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
-import app from "./app";
 import config from "./config"
+import { server } from "./Modules/Socketio";
+
+
 
 async function main(){
     try{
         await mongoose.connect(config.url as string,{dbName:"Apollo-assignment-6"})
-        app.listen(config.port,()=>{
+        server.listen(config.port,()=>{
             console.log(`this server is running at ${config.port} port.`)
         })
     }
@@ -14,4 +16,4 @@ async function main(){
     }
 }
 
-main()
+main() 

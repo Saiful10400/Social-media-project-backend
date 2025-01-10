@@ -25,14 +25,14 @@ const payWithBookingId = catchAsync(async (req: Request, res: Response) => {
 //2. payment after redirection process.
 const paymentStatus = catchAsync(async (req: Request, res: Response) => {
   const userId = req.params.id;
-  const tnxId = req.query.transectonId;
+  const tnxId = req.query.transectonId as string
   const paymentStatus = await varifyPayment(tnxId as string);
   
 
   // update payment status info into db.
 
   if (paymentStatus.pay_status === "Successful") {
-    const updatePaymentToDb = await paymentservice.updateAbookingPaymentStatus(
+   await paymentservice.updateAbookingPaymentStatus(
       userId,
       tnxId,
       paymentStatus.payment_processor,

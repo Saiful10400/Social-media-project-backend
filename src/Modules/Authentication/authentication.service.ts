@@ -36,7 +36,7 @@ const signup = async (payload: Tuser) => {
 
 //2. login.
 const login = async (payload: TuserLogin) => {
-  const data = await signupModel.findOne(payload);
+  const data:{password:undefined,_id:string,role:string}|null = await signupModel.findOne(payload);
  
   if (!data)
     throw new appError(httpStatus.UNAUTHORIZED, "Incorrect email or password!");
@@ -65,7 +65,7 @@ const getCurrentUser = async (payload:string) => {
 
 
 // 4. check credentials.
-const checkCredential=async(name,email)=>{
+const checkCredential=async(name:string,email:string)=>{
   const isExist=await signupModel.findOne({name,email})
 
   if(isExist){
@@ -76,7 +76,7 @@ const checkCredential=async(name,email)=>{
   }
 }
 // 4. check credentials.
-const  validateLastPasswod=async(password,email)=>{
+const  validateLastPasswod=async(password:string,email:string)=>{
   const isExist=await signupModel.findOne({password,email})
 console.log(isExist,"val pass.")
   if(isExist){
@@ -88,14 +88,14 @@ console.log(isExist,"val pass.")
 }
 
 //5. change password.
-const changePassword=async(payload)=>{
+const changePassword=async(payload:{email:string,password:string})=>{
   
   const crUpdate=await signupModel.updateOne({email:payload.email},{password:payload.password})
   return crUpdate
 }
 
 //6. get single profile data.
-const getSingleProfileData=async(payload)=>{
+const getSingleProfileData=async(payload:string)=>{
   
   
   const result=await signupModel.findById(payload)
@@ -104,7 +104,7 @@ const getSingleProfileData=async(payload)=>{
 
 
 //7. update a profile.
-const updateAProfile=async(id,paylod)=>{
+const updateAProfile=async(id:string,paylod:{[key:string]:string})=>{
 
   const result=await signupModel.findByIdAndUpdate(id,paylod,{new:true})
   return result

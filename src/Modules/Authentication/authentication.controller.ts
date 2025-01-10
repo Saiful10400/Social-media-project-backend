@@ -1,8 +1,10 @@
-import { Request, Response } from "express";
+import { Request , Response } from "express";
 import catchAsync from "../../Utility/catchAsync";
 import AuthenticationService from "./authentication.service";
 import sendResponse from "../../Utility/sendResponse";
 import httpStatus from "http-status";
+
+
 
 //1. create a user.
 const signup = catchAsync(async (req: Request, res: Response) => {
@@ -46,9 +48,15 @@ const login = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+interface Trequest extends Request {
+  userId?: string;
+}
+
+
 //3. login a user.
-const getCurrentUser = catchAsync(async (req: Request, res: Response) => {
-  const result = await AuthenticationService.getCurrentUser(req.userId);
+const getCurrentUser = catchAsync(async (req: Trequest, res: Response) => {
+  const result = await AuthenticationService.getCurrentUser(req.userId as string);
 
   sendResponse(res, {
     data: result,

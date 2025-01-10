@@ -17,5 +17,17 @@ const getNoti = catchAsync(async (req: Request, res: Response) => {
     });
   });
 
-  const noticontroller={getNoti}
+const makeAUserAllRead = catchAsync(async (req: Request, res: Response) => {
+
+    const result = await notiser.makeAllRead(req.params?.id)
+  
+    sendResponse(res, {
+      data: result,
+      statusCode: httpStatus.OK,
+      message: "getted all noti.",
+      success: true,
+    });
+  });
+
+  const noticontroller={getNoti,makeAUserAllRead}
   export default noticontroller

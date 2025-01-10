@@ -59,12 +59,7 @@ const signupSchema = new Schema<Tuser>({
   },
   socialLinks: {
     type: [String],
-    validate: {
-      validator: function (v) {
-        return v.every(link => /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/.test(link));
-      },
-      message: "Invalid URL in social links"
-    }, 
+    
     default: []
   }
 }, { timestamps: true });

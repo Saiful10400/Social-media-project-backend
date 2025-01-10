@@ -13,7 +13,7 @@ const deleteOne=async(id:string)=>{
 }
 
 
-const updateOne=async(id:string,payload)=>{
+const updateOne=async(id:string,payload:{[key :string]:string})=>{
     const result=await CommentModel.findByIdAndUpdate(id,payload)
     return result
 }

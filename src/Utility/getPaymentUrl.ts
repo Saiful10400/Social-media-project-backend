@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const getPaymentUrl = async (user) => {
+const getPaymentUrl = async (user:{name:string,email:string,phone:string,address:string,_id:string}) => {
   const transectionId=`TNX-${Date.now()}-${user.phone}`
   const paymentObj = {
     store_id: process.env.STORE_ID,

@@ -1,14 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 
 const reactionSchema: Schema = new Schema({
-  message: { type: String,  required: true }, // Post ID as a string
-  receiver: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  }
+  for:{type:mongoose.Types.ObjectId,ref:"User"},
+  by:{type:mongoose.Types.ObjectId,ref:"User"},
+  type: { type: String,enum:["like","comment","follow"], required: true }, // e.g., 'like', 'comment', 'follow'
+  content: { type: String },
+  isRead: { type: Boolean, default: false },
+  link: { type: String,require:false },
   
-});
+},{timestamps:true});
 
 // Step 3: Create the Mongoose model
 const notificationModel = mongoose.model("Notification", reactionSchema);

@@ -2,8 +2,8 @@ import mongoose from "mongoose"
 import favouriteModel from "./favourite.model"
 
 // create one.
-const Togglefavourite=async(payload)=>{
-    console.log(payload)
+const Togglefavourite=async(payload:{postId:string,userId:string})=>{
+  
 
 // at first check is this exist or not.
 const isexist=await favouriteModel.findOne({postId:new mongoose.Types.ObjectId(payload.postId),userId:new mongoose.Types.ObjectId(payload.userId)})

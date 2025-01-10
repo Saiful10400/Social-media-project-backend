@@ -11,12 +11,12 @@ const createOne=async(payload:Tpost)=>{
     return result
 }
 //2. update one.
-const updateOne=async(id,payload)=>{
+const updateOne=async(id:string,payload:{[key:string]:string|number|boolean})=>{
     const result=await postModel.findByIdAndUpdate(id,payload)
     return result
 }
 //3. delete one.
-const deleteOne=async(id)=>{
+const deleteOne=async(id:string)=>{
     const result=await postModel.findByIdAndUpdate(id,{isDeleted:true})
     return result
 }
