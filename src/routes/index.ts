@@ -8,6 +8,7 @@ import paymentHistoryRoute from "../Modules/UserPayment/UserPayment.routes"
 import commentRoute from "../Modules/Comment/comment.routes"
 import favouriteRoute from "../Modules/Favourite/favourite.routes"
 import NotificationRoute from "../Modules/Notification/Notification.routes"
+import friendRoutes from "../Modules/Friend/friend.routes"
 
 
 const routes=Router()
@@ -57,6 +58,11 @@ const moduleRoutes=[
     {
         path:"/notification",
         route:NotificationRoute
+    }
+    ,
+    {
+        path:"/friend",
+        route:friendRoutes
     }
 ]
 
