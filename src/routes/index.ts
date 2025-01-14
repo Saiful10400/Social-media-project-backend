@@ -9,6 +9,8 @@ import commentRoute from "../Modules/Comment/comment.routes"
 import favouriteRoute from "../Modules/Favourite/favourite.routes"
 import NotificationRoute from "../Modules/Notification/Notification.routes"
 import friendRoutes from "../Modules/Friend/friend.routes"
+import CategoryRoutes from "../Modules/Category/Category.routes"
+import PageRoutes from "../Modules/Page/Page.routes"
 
 
 const routes=Router()
@@ -63,6 +65,16 @@ const moduleRoutes=[
     {
         path:"/friend",
         route:friendRoutes
+    }
+    ,
+    {
+        path:"/category",
+        route:CategoryRoutes
+    }
+    ,
+    {
+        path:"/page",
+        route:PageRoutes
     }
 ]
 
