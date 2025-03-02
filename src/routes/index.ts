@@ -11,6 +11,7 @@ import NotificationRoute from "../Modules/Notification/Notification.routes"
 import friendRoutes from "../Modules/Friend/friend.routes"
 import CategoryRoutes from "../Modules/Category/Category.routes"
 import PageRoutes from "../Modules/Page/Page.routes"
+import storyRoutes from "../Modules/Story/story.routes"
 
 
 const routes=Router()
@@ -75,6 +76,11 @@ const moduleRoutes=[
     {
         path:"/page",
         route:PageRoutes
+    }
+    ,
+    {
+        path:"/story",
+        route:storyRoutes
     }
 ]
 

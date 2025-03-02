@@ -15,10 +15,10 @@ app.use("/api", routes);
 app.use(globalErrorHandler);
 // handle invalid route.
 app.use((req: Request, res: Response) => {
-  res.status(404).json({
-    success: false,
-    statusCode: 404,
-    message: "Not Found",
+  res.status(200).json({
+    success: true,
+    statusCode: 200,
+    message: "Welcome to the root route.",
   });
 });
 
