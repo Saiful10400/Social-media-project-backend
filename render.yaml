@@ -2,6 +2,6 @@ services:
   - type: web
     name: social-media-backend
     env: node
-    buildCommand: yarn build
+    buildCommand: yarn
     startCommand: yarn start
     plan: free
