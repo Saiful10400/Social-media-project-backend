@@ -16,6 +16,18 @@ const createPage = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// update page.
+const updatePage = catchAsync(async (req: Request, res: Response) => {
+  const result = await pageService.updatePage(req.params.id,req.body);
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "Page updated",
+    success: true,
+  });
+});
+
 //a user all page.
 const auserAllPage = catchAsync(async (req: Request, res: Response) => {
   let result
@@ -88,5 +100,5 @@ const aPageAllMembers = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const pageController={createPage,auserAllPage,invite,modifyInvite,aPageDetails,aPageAllMembers}
+const pageController={createPage,auserAllPage,invite,modifyInvite,aPageDetails,aPageAllMembers,updatePage}
 export default pageController

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 import { pageModel, userPageModel } from "./page.model";
 
 // create a page.
@@ -21,6 +21,12 @@ const createPage = async (payload: { [key: string]: string }) => {
     session.endSession();
   }
 };
+
+// update page.
+const updatePage=async(id:string,payload:Partial<InferSchemaType<typeof pageModel>>)=>{
+  const result=await pageModel.findByIdAndUpdate(id,payload)
+  return result
+}
 
 const userAllPage = async (id: string) => {
   const result = await userPageModel
@@ -86,5 +92,6 @@ const pageService = {
   createAPageUserInstance,
   modifyInvitation,
   aPageDetails,
+  updatePage
 };
 export default pageService;

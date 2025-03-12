@@ -2,8 +2,11 @@ import { Router } from "express";
 import pageController from "./page.controller";
 
 const router=Router()
-
+// create page.
 router.post("/create",pageController.createPage)
+
+// update page.
+router.put("/update/:id",pageController.updatePage)
 
 // auser all page. also give invitation (?invitation=false/true)
 router.get("/:id",pageController.auserAllPage)
