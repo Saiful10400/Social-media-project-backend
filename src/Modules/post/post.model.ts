@@ -15,14 +15,14 @@ const postSchema = new mongoose.Schema({
         ref: 'User', // Change 'User' to the actual model name if different
         required: true,
     },
-    category: {
-        type: String,
-        required: true,
-    },
-    costing: {
-        type: String,
-        required: true,
-    },
+    // category: {
+    //     type: String,
+    //     required: true,
+    // },
+    // costing: {
+    //     type: String,
+    //     required: true,
+    // },
     vote: {
         type: Number,
         default: 0,
@@ -35,6 +35,19 @@ const postSchema = new mongoose.Schema({
         type: Boolean,
         default: false, // Default value is false
     },
+
+    // modify for group post. (user, group,isGroupPost)
+    isGroupPost:{
+        type:Boolean,
+        default:false
+    },
+    group:{
+        type:mongoose.Schema.Types.ObjectId,
+        require:false,
+        ref:"page"
+    }
+
+
 }, {
     timestamps: true, // Adds createdAt and updatedAt fields
 });

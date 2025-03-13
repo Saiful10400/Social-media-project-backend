@@ -24,6 +24,12 @@ router.get("/details/:id",pageController.aPageDetails)
 router.get("/members/:id",pageController.aPageAllMembers)
 
 
+//## page post related apis.
+
+// get a page all posts.
+router.get("/posts/:id",pageController.aPageAllPosts)
+
+
 
 const PageRoutes=router
 export default PageRoutes 

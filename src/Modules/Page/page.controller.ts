@@ -3,6 +3,8 @@ import catchAsync from "../../Utility/catchAsync";
 import sendResponse from "../../Utility/sendResponse";
 import httpStatus from "http-status";
 import pageService from "./page.service";
+import { error } from "console";
+import { pageModel } from "./page.model";
 
 // create page.
 const createPage = catchAsync(async (req: Request, res: Response) => {
@@ -18,6 +20,8 @@ const createPage = catchAsync(async (req: Request, res: Response) => {
 
 // update page.
 const updatePage = catchAsync(async (req: Request, res: Response) => {
+  
+ 
   const result = await pageService.updatePage(req.params.id,req.body);
 
   sendResponse(res, {
@@ -100,5 +104,21 @@ const aPageAllMembers = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const pageController={createPage,auserAllPage,invite,modifyInvite,aPageDetails,aPageAllMembers,updatePage}
+// a page all posts.
+const aPageAllPosts= catchAsync(async (req: Request, res: Response) => {
+
+  const result =await pageService.aPageAllPosts(req.params?.id);
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "A page all posts retrieved.",
+    success: true,
+  });
+});
+
+
+
+
+const pageController={createPage,auserAllPage,invite,modifyInvite,aPageDetails,aPageAllMembers,updatePage,aPageAllPosts}
 export default pageController

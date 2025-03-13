@@ -1,5 +1,9 @@
 import mongoose, { InferSchemaType } from "mongoose";
 import { pageModel, userPageModel } from "./page.model";
+import postModel from "../post/post.model";
+import reactonModel from "../Reaction/reaction.model";
+import CommentModel from "../Comment/comment.model";
+import favouriteModel from "../Favourite/favourite.model";
 
 // create a page.
 const createPage = async (payload: { [key: string]: string }) => {
@@ -84,6 +88,19 @@ const aPageFollowers = async (id: string) => {
   return { pendingUser, activeUser };
 };
 
+const aPageAllPosts=async(id:string)=>{
+  const allPost=await postModel.find({$and:[{group:new mongoose.Types.ObjectId(id)},{isGroupPost:true}]}).populate("creator")
+
+  const result=allPost.map(async(item)=>{
+    const allPromises=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
+    const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id),isDeleted:false}).populate("commentor")
+    const favourite=await favouriteModel.find({postId:new mongoose.Types.ObjectId(item?._id)})
+    return{post:item,reaction:allPromises,comments,favourite}
+})
+ 
+return Promise.all(result)
+}
+
 const pageService = {
   aPageFollowers,
   createPage,
@@ -92,6 +109,7 @@ const pageService = {
   createAPageUserInstance,
   modifyInvitation,
   aPageDetails,
-  updatePage
+  updatePage,
+  aPageAllPosts
 };
 export default pageService;

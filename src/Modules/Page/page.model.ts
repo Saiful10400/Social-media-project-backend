@@ -8,7 +8,7 @@ const pageSchema: Schema = new Schema(
     isRead: { type: Boolean, default: false },
     name: { type: String, require: true },
     // edition 2.0.
-    desciption: { type: String, require: false, default: "" },
+    description: { type: String, require: false, default: "" },
     privacy: {
       type: String,
       enum: ["private", "publick", "close"],
