@@ -78,7 +78,7 @@ const checkCredential=async(name:string,email:string)=>{
 // 4. check credentials.
 const  validateLastPasswod=async(password:string,email:string)=>{
   const isExist=await signupModel.findOne({password,email})
-console.log(isExist,"val pass.")
+ 
   if(isExist){
     return {credential:true}
   }

@@ -6,7 +6,7 @@ import commentService from "./comment.service";
 
 
 const createOne = catchAsync(async (req: Request, res: Response) => {
-console.log(req.body)
+ 
     const result = await commentService.createOne(req.body)
   
     sendResponse(res, {

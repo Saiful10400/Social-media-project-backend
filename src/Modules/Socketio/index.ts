@@ -25,11 +25,13 @@ let activeUser: Tuser[] = [];
 const getActiveFriends = async (id: string) => {
   const frindsResponse = await friendModel
     .find({
-      $or: [
-        { sender: new mongoose.Types.ObjectId(id) },
-        { receiver: new mongoose.Types.ObjectId(id) },
-      ],
-      status: true,
+      $and:[
+        {$or: [
+          { sender: new mongoose.Types.ObjectId(id) },
+          { receiver: new mongoose.Types.ObjectId(id) },
+        ]},
+        {status: true},
+      ]
     })
     .populate("sender")
     .populate("receiver");
@@ -107,7 +109,7 @@ type TNotification = {
 };
 
 export const sendNotiFicationWithSocketIo = async (payload: TNotification) => {
-  // console.log(payload,activeUser)
+ 
 
   const session = await mongoose.startSession();
 
@@ -141,6 +143,7 @@ export const sendFrindRequest = (userId: string, data: TfriendRequest[]) => {
 io.on("connection", (socket) => {
   socket.on("activeFriend", async (id: string) => {
     const activeFriend = await getActiveFriends(id);
+    
     const listenerId = activeUser.find((item) => item._id === id)?.sId;
     io.to(listenerId as string).emit("activeFrindList", activeFriend);
   });

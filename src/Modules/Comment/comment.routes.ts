@@ -17,5 +17,7 @@ router.delete("/:id",commentController.deleteOne)
 router.put("/:id",commentController.updateOne)
 
 
+
+
 const commentRoute=router
 export default commentRoute  

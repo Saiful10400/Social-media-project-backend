@@ -50,9 +50,34 @@ const getFriendRequest = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const peopleYouMayKnow = catchAsync(async (req: Request, res: Response) => {
+  const result = await friendService.peopleYouMayKnow(req.params.id);
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "people you may khow retrieved.",
+    success: true,
+  });
+});
+
+const getExistingFriends = catchAsync(async (req: Request, res: Response) => {
+  const result = await friendService.getExistingFriends(req.params.id);
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "all existing friend retrieved.",
+    success: true,
+  });
+});
+
+
 export const frindController = {
   createAfriendRequest,
   modifyRequest,
   getAUserAllFrind,
-  getFriendRequest
+  getFriendRequest,
+  peopleYouMayKnow,
+  getExistingFriends
 };

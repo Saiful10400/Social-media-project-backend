@@ -101,6 +101,11 @@ const aPageAllPosts=async(id:string)=>{
 return Promise.all(result)
 }
 
+const auserAllFollowingPages=async(userId:string)=>{
+  const result=await userPageModel.find({$and:[{user:new mongoose.Types.ObjectId(userId)},{accept:true}]}).populate("page")
+  return result
+}
+
 const pageService = {
   aPageFollowers,
   createPage,
@@ -110,6 +115,7 @@ const pageService = {
   modifyInvitation,
   aPageDetails,
   updatePage,
-  aPageAllPosts
+  aPageAllPosts,
+  auserAllFollowingPages
 };
 export default pageService;

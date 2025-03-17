@@ -24,7 +24,7 @@ const deleteOne=async(id:string)=>{
 //4. get all.
 const getAll=async()=>{
 const allPost=await postModel.find({isDeleted:false}).populate("creator").populate("group")
-console.log(allPost)
+ 
 
 const result=allPost.map(async(item)=>{
     const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
@@ -97,30 +97,9 @@ const allPostImage=async()=>{
 const getAllnews=async()=>{
     // const allPost=await postModel.find({isDeleted:false,isBlock:false}).populate("creator").populate("group")
 
-    const allPost = await postModel.aggregate([
-        { $sample: { size: 10 } }, // Randomly select 10 posts
-        {
-          $lookup: {
-            from: "users",
-            localField: "creator",
-            foreignField: "_id",
-            as: "creator"
-          }
-        },
-        { $unwind: "$creator" },
-        {
-          $lookup: {
-            from: "pages",
-            localField: "group",
-            foreignField: "_id",
-            as: "group"
-          }
-        },
-        { $unwind: { path: "$group", preserveNullAndEmptyArrays: true } }
-      ]);
+    const allPost = await postModel.find().sort({createdAt:-1}).populate("creator").populate("group");
  
-console.log(allPost)
-
+    
 const result=allPost.map(async(item)=>{
     const reaction=await reactonModel.find({post:new mongoose.Types.ObjectId(item?._id)})
     const comments=await CommentModel.find({post:new mongoose.Types.ObjectId(item?._id),isDeleted:false}).populate("commentor")

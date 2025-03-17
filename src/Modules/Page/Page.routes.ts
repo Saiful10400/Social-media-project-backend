@@ -23,6 +23,9 @@ router.get("/details/:id",pageController.aPageDetails)
 // a page members
 router.get("/members/:id",pageController.aPageAllMembers)
 
+// auser all following pages.
+router.get("/aUserAllfollowingPage/:userId",pageController.aUserAllFollowingPages)
+
 
 //## page post related apis.
 

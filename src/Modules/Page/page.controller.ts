@@ -3,8 +3,7 @@ import catchAsync from "../../Utility/catchAsync";
 import sendResponse from "../../Utility/sendResponse";
 import httpStatus from "http-status";
 import pageService from "./page.service";
-import { error } from "console";
-import { pageModel } from "./page.model";
+ 
 
 // create page.
 const createPage = catchAsync(async (req: Request, res: Response) => {
@@ -118,7 +117,21 @@ const aPageAllPosts= catchAsync(async (req: Request, res: Response) => {
 });
 
 
+// a user all followingPages.
+const aUserAllFollowingPages= catchAsync(async (req: Request, res: Response) => {
+
+ const result =await pageService.auserAllFollowingPages(req.params?.userId);
+
+  sendResponse(res, {
+    data: result,
+    statusCode: httpStatus.OK,
+    message: "a user all following page",
+    success: true,
+  });
+});
 
 
-const pageController={createPage,auserAllPage,invite,modifyInvite,aPageDetails,aPageAllMembers,updatePage,aPageAllPosts}
+
+
+const pageController={createPage,auserAllPage,invite,modifyInvite,aPageDetails,aPageAllMembers,updatePage,aPageAllPosts,aUserAllFollowingPages}
 export default pageController
