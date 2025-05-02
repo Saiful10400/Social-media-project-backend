@@ -36,6 +36,7 @@ const signup = async (payload: Tuser) => {
 
 //2. login.
 const login = async (payload: TuserLogin) => {
+ 
   const data:{password:undefined,_id:string,role:string}|null = await signupModel.findOne(payload);
  
   if (!data)

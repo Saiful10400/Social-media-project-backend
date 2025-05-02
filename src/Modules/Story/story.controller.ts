@@ -51,7 +51,7 @@ const createStory = catchAsync(async (req: Request, res: Response) => {
 
 const getStory = catchAsync(async (req: Request, res: Response) => {
 
-  const result=await storyService.getStory(req.body)
+  const result=await storyService.getAllStorys()
 
   sendResponse(res, {
     data: result,
@@ -60,6 +60,8 @@ const getStory = catchAsync(async (req: Request, res: Response) => {
     success: true,
   });
 });
+
+
 
 
 

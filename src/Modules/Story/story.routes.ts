@@ -10,7 +10,7 @@ router.get("/all-music",storyController.getMusic)
 // create story.
 router.post("/create-story",storyController.createStory)
 
-router.get("/get-story/:id",storyController.getStory)
+router.get("/get-story",storyController.getStory)
 
 
 const storyRoutes=router
