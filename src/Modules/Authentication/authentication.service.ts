@@ -6,8 +6,6 @@ import { signupModel } from "./authentication.model";
 import jwt from "jsonwebtoken";
 // 1. signup.
 const signup = async (payload: Tuser) => {
-
-
   // let's check is the same user is exixt or not.
   const isUserExist = await signupModel.findOne({ email: payload.email });
   if (isUserExist)
@@ -23,104 +21,89 @@ const signup = async (payload: Tuser) => {
   //   expiresIn: config.accessTokenLife,
   // });
 
-  return data
+  return data;
 };
-
-
-
-
-
-
-
-
 
 //2. login.
 const login = async (payload: TuserLogin) => {
- 
-  const data:{password:undefined,_id:string,role:string}|null = await signupModel.findOne(payload);
- 
+  // console.log(payload)
+  // return
+  const data: { password: undefined; _id: string; role: string } | null =
+    await signupModel.findOne(payload);
+
   if (!data)
     throw new appError(httpStatus.UNAUTHORIZED, "Incorrect email or password!");
-data.password=undefined
+  data.password = undefined;
 
-// create jwt token.
-const jwtPayload = {
-  id: data._id,
-  role: data.role,
+  // create jwt token.
+  const jwtPayload = {
+    id: data._id,
+    role: data.role,
+  };
+  const accessToken = jwt.sign(jwtPayload, config.jwtSecret as string, {
+    expiresIn: config.accessTokenLife,
+  });
+
+  return { data, accessToken };
 };
-const accessToken = jwt.sign(jwtPayload, config.jwtSecret as string, {
-  expiresIn: config.accessTokenLife,
-});
-
-
-  return {data,accessToken};
-};
-
 
 //2. getucrrentuser.
-const getCurrentUser = async (payload:string) => {
-  const result=await signupModel.findById(payload)
-  return result
-
+const getCurrentUser = async (payload: string) => {
+  const result = await signupModel.findById(payload);
+  return result;
 };
 
-
 // 4. check credentials.
-const checkCredential=async(name:string,email:string)=>{
-  const isExist=await signupModel.findOne({name,email})
+const checkCredential = async (name: string, email: string) => {
+  const isExist = await signupModel.findOne({ name, email });
 
-  if(isExist){
-    return {credential:true}
+  if (isExist) {
+    return { credential: true };
+  } else {
+    return { credential: false };
   }
-  else{
-    return {credential:false}
-  }
-}
+};
 // 4. check credentials.
-const  validateLastPasswod=async(password:string,email:string)=>{
-  const isExist=await signupModel.findOne({password,email})
- 
-  if(isExist){
-    return {credential:true}
+const validateLastPasswod = async (password: string, email: string) => {
+  const isExist = await signupModel.findOne({ password, email });
+
+  if (isExist) {
+    return { credential: true };
+  } else {
+    return { credential: false };
   }
-  else{
-    return {credential:false}
-  }
-}
+};
 
 //5. change password.
-const changePassword=async(payload:{email:string,password:string})=>{
-  
-  const crUpdate=await signupModel.updateOne({email:payload.email},{password:payload.password})
-  return crUpdate
-}
+const changePassword = async (payload: { email: string; password: string }) => {
+  const crUpdate = await signupModel.updateOne(
+    { email: payload.email },
+    { password: payload.password }
+  );
+  return crUpdate;
+};
 
 //6. get single profile data.
-const getSingleProfileData=async(payload:string)=>{
-  
-  
-  const result=await signupModel.findById(payload)
-  return result
-}
-
+const getSingleProfileData = async (payload: string) => {
+  const result = await signupModel.findById(payload);
+  return result;
+};
 
 //7. update a profile.
-const updateAProfile=async(id:string,paylod:{[key:string]:string})=>{
-
-  const result=await signupModel.findByIdAndUpdate(id,paylod,{new:true})
-  return result
-}
+const updateAProfile = async (
+  id: string,
+  paylod: { [key: string]: string }
+) => {
+  const result = await signupModel.findByIdAndUpdate(id, paylod, { new: true });
+  return result;
+};
 
 //8. get all
-const getAllUser=async()=>{
+const getAllUser = async () => {
+  const result = await signupModel.find();
 
-  const result=await signupModel.find()
-
-  return result
-}
-
-
-
+  return result;
+};
 
 const AuthenticationService = {
   signup,
@@ -131,7 +114,7 @@ const AuthenticationService = {
   changePassword,
   getSingleProfileData,
   updateAProfile,
-  validateLastPasswod
+  validateLastPasswod,
 };
 
 export default AuthenticationService;
