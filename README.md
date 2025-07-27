@@ -9,7 +9,7 @@ The backend of Gardenia is responsible for managing the core functionality of th
 ## 🛠️ Features
 
 1. **User Authentication:**
-   - Sign up and login with JWT-based authentication.
+   - Sign up and login with JWT-based Authentication.
 
 2. **Profile Verification:**
    - Users can verify their profile by making a payment to gain access to premium content.
